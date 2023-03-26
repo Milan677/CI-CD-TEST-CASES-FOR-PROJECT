@@ -1,0 +1,27 @@
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+      run: node index.js
+      run: node app.test.js
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 14.x
+      
+    - name: Install dependencies
+      run: npm install
+      
+    - name: Run tests
+      run: npm test
+      
+    - name: Upload test results
+      uses: actions/upload-artifact@v2
+      with:
+        name: test-results
+        path: test-results.xml
